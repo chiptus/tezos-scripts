@@ -1,0 +1,19 @@
+  # The Tezos Baker service (part of systemd)
+    # file: /etc/systemd/system/tezos-baker.service 
+
+    [Unit]
+    Description     = Tezos Baker Service
+    Wants           = network-online.target 
+    BindsTo         = tezos-node.service
+    After           = tezos-node.service
+
+    [Service]
+    User             = $USER
+    Group            = $USER
+    ExecStartPre     = /bin/sleep 1
+    WorkingDirectory = /home/$USER
+    ExecStart        = /home/$USER/tezos/tezos-baker run with local node $HOME/.tezos-node $ACC_PUB_KEY
+    Restart          = on-failure
+
+    [Install]
+    WantedBy	= multi-user.target

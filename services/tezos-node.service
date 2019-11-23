@@ -1,0 +1,20 @@
+ # The Tezos Node service (part of systemd)
+    # file: /etc/systemd/system/tezos-node.service
+
+    [Unit]
+    Description      = Tezos Node Service
+    Documentation    = http://tezos.gitlab.io/betanet/
+    Wants            = network-online.target 
+    After            = network-online.target  
+
+    [Service]
+    User             = etbaker
+    Group            = etbaker
+    WorkingDirectory = /home/etbaker
+    ExecStart        = /home/etbaker/tezos/tezos-node run --bootstrap-threshold=1
+    Restart          = on-failure
+
+    [Install]
+    WantedBy         = multi-user.target
+    RequiredBy       = tezos-baker.service tezos-endorser.service tezos-accuser.service
+

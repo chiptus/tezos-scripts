@@ -1,0 +1,19 @@
+ # The Tezos Endorser service (part of systemd)
+    # file: /etc/systemd/system/tezos-endorser.service 
+
+    [Unit]
+    Description     = Tezos Endorser Service
+    Wants           = network-online.target
+    BindsTo         = tezos-node.service
+    After           = tezos-node.service
+
+    [Service]
+    User             = $USER
+    Group            = $USER
+    ExecStartPre     = /bin/sleep 1
+    WorkingDirectory = /home/$USER
+    ExecStart        = /home/$USER/tezos/tezos-endorser run $ACC_PUB_KEY
+    Restart          = on-failure
+
+    [Install]
+    WantedBy         = multi-user.target
