@@ -8,10 +8,10 @@
     After            = network-online.target  
 
     [Service]
-    User             = etbaker
-    Group            = etbaker
-    WorkingDirectory = /home/etbaker
-    ExecStart        = /home/etbaker/tezos/tezos-node run --bootstrap-threshold=1
+    User             = $USER
+    Group            = $USER
+    WorkingDirectory = /home/$USER
+    ExecStart        = /home/$USER/tezos/tezos-node run --bootstrap-threshold=1
     Restart          = on-failure
 
     [Install]
